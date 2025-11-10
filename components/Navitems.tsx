@@ -24,7 +24,6 @@ const Navitems = () => {
                 </Link>
             </li>
         ))}
-
     </ul>
   )
 }
