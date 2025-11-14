@@ -13,6 +13,12 @@ const InputField = ({
     disabled,
     value
 }: FormInputProps) => {
+  // Don't pass value prop if using react-hook-form register (it manages value internally)
+  // Only pass value if explicitly provided for controlled inputs
+  const inputProps = register 
+    ? register(name, validation)
+    : { value, name, onChange: () => {} }
+  
   return (
     <div className="space-y-2">
         <Label htmlFor={name} className='form-label'>
@@ -23,9 +29,9 @@ const InputField = ({
             id={name}
             placeholder={placeholder}
             disabled={disabled}
-            value={value}
             className={cn('form-input', {'opacity-50 cursor-not-allowed': disabled})}
-            {...register(name, validation)}
+            suppressHydrationWarning
+            {...inputProps}
         />
         {error && <p className='text-sm text-red-500'>{error.message}</p>}
     </div>
