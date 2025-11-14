@@ -5,10 +5,19 @@ import FooterLink from "@/components/form/FooterLink"
 import InputField from "@/components/form/InputField"
 import SelectField from "@/components/form/SelectField"
 import { Button } from "@/components/ui/button"
+
+import { toast } from "sonner"
+
+import { signUpWithEmail } from "@/lib/actions/call.actions"
 import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from "@/lib/constants"
+
+import { useRouter } from "next/navigation"
+
 import { useForm } from "react-hook-form"
 
+
 const SignUpPage = () => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -29,9 +38,13 @@ const SignUpPage = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      console.log(data)
+      const result = await signUpWithEmail(data);
+      if(result.success) {router.push('/')} 
     } catch (e) {
       console.log(e)
+      toast.error('Sign up failed', {
+        description: e instanceof Error ? e.message : 'Failed to create an Account'
+      })
     }
   }
   
@@ -57,8 +70,10 @@ const SignUpPage = () => {
           register={register}
           error={errors.email}
           validation={{ required: "Email name is required", 
-                        pattern: /^\w+@\w+\.w+$/, 
-                        message: 'Email Address is required'}}
+                        pattern: {
+                          value: /^\w+@\w+\.\w+$/,
+                          message: 'Please enter a valid email address'
+                        }}}
         />
         <InputField 
           name="password"
@@ -90,7 +105,7 @@ const SignUpPage = () => {
           required
         />
         <SelectField 
-          name="risktolerance"
+          name="riskTolerance"
           label="Risk Tolerance"
           placeholder="Select your risk tolerance"
           options={RISK_TOLERANCE_OPTIONS}
