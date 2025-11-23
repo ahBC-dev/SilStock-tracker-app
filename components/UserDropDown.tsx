@@ -61,15 +61,15 @@ const UserDropDown = ({ user, initialStocks }: { user: User, initialStocks: Stoc
                         </div>
                     </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-gray-600"/>
-                <DropdownMenuItem onClick={handleSignOut} className="text-gray-300 text-md font-medium focus:bg-transparent focus:text-blue-500 transition-colors cursor-pointer">
-                    <LogOut className="h-4 w-4 mr-2 hidden sm:block" />
-                    Logout
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="hidden sm-block bg-gray-600"/>
                 <nav className="sm:hidden">
-                    <Navitems initialStocks={initialStocks} />
+                    <Navitems initialStocks={initialStocks} userEmail={user?.email} />
                 </nav>
+                <DropdownMenuSeparator className="bg-gray-600"/>
+                    <DropdownMenuItem onClick={handleSignOut} className="text-gray-300 text-md font-medium focus:bg-transparent focus:text-blue-500 transition-colors cursor-pointer">
+                        <LogOut className="text-2xl " />
+                        Logout
+                    </DropdownMenuItem>
+                <DropdownMenuSeparator className="hidden sm:block bg-gray-600"/>
             </DropdownMenuContent>
         </DropdownMenu>
     )
