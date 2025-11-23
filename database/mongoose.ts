@@ -18,7 +18,7 @@ if(!cached) {
 
 export const connectToDatabase = async () => {
     const MONGO_URI = getMongoUri();
-    if(!MONGO_URI) throw new Error('MONGO_URI must be within the environment variables');
+    if(!MONGO_URI) throw new Error('MONGO_URI must be within the environment variables ');
 
     if(cached.conn) return cached.conn;
 
@@ -31,6 +31,7 @@ export const connectToDatabase = async () => {
     } catch (err) {
         cached.promise = null;
         throw err
+        
     }
 
     console.log(`Connected to database ${process.env.NODE_ENV} ${MONGO_URI}`);

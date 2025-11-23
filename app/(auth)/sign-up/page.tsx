@@ -113,6 +113,7 @@ const SignUpPage = () => {
           error={errors.riskTolerance}
           required
         />
+        
         <SelectField 
           name="preferredIndustry"
           label="Preferred Industry"
