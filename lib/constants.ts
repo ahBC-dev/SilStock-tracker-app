@@ -337,3 +337,45 @@ export const WATCHLIST_TABLE_HEADER = [
     'Alert',
     'Action',
 ];
+
+
+
+// ...existing code...
+
+export const TICKER_TAPE_WIDGET_CONFIG = (symbols: string[]) => ({
+  symbols: symbols.map(s => ({ proName: s.toUpperCase(), title: s.toUpperCase() })),
+  colorTheme: "dark",
+  isTransparent: true,
+  displayMode: "adaptive",
+  locale: "en"
+});
+
+export const MARKET_OVERVIEW_WIDGET_CONFIG_SYMBOL = (symbols: string[], title: string) => ({
+  colorTheme: "dark",
+  dateRange: "12M",
+  showChart: true,
+  locale: "en",
+  largeChartUrl: "",
+  isTransparent: true,
+  showSymbolLogo: true,
+  showFloatingTooltip: false,
+  width: "100%",
+  height: "600",
+  tabs: [
+    {
+      title: title,
+      symbols: symbols.map(s => ({ s: s.toUpperCase() }))
+    }
+  ]
+});
+
+export const TIMELINE_WIDGET_CONFIG = (symbol: string) => ({
+  feedMode: "symbol",
+  symbol: symbol.toUpperCase(),
+  colorTheme: "dark",
+  isTransparent: true,
+  displayMode: "regular",
+  width: "100%",
+  height: "600",
+  locale: "en"
+});

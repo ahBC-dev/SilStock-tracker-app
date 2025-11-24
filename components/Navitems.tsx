@@ -11,7 +11,7 @@ import { PiListStar } from "react-icons/pi";
 
 const NAV_ITEMS = [
     { href: '/', label: 'Dashboard', Icon: RiDashboardHorizontalFill },
-    { href: '/watchlist', label: 'Watchlist', Icon: PiListStar },
+    { href: '/watchlist/${symbol}', label: 'Watchlist', Icon: PiListStar },
     //{ href: '/alerts', label: 'Alerts' },
     { href: '/search', label: 'Search', },
 ]
