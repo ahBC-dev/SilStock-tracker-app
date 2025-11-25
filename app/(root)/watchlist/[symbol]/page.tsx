@@ -21,7 +21,7 @@ export default async function WatchlistPage() {
 
   // Use session to determine if user is logged in
   const isLoggedIn = !!session?.user?.email;
-  const userEmail = session?.user?.email;
+  const userEmail: string = session?.user?.email ?? '';
 
   const watchlistSymbols = isLoggedIn 
     ? await getWatchlistSymbolsByEmail(userEmail)
