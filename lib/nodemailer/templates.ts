@@ -64,7 +64,7 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center">
-                    <a href="https://stock-market-dev.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;text-decoration:none;padding:14px 38px;border-radius:999px;font-weight:700;font-size:15px;box-shadow:0 8px 20px rgba(14,165,233,0.18);">
+                    <a href="https://sil-stock-tracker-app-c48v.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;text-decoration:none;padding:14px 38px;border-radius:999px;font-weight:700;font-size:15px;box-shadow:0 8px 20px rgba(14,165,233,0.18);">
                       Start Exploring →
                     </a>
                   </td>
@@ -76,7 +76,7 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
                   <td align="center" style="color:#64748b;font-size:12px;line-height:1.5;">
                     SilStocks HQ • 200 Market Street, San Francisco, CA 94105<br>
                     <a href="#" style="color:#64748b;text-decoration:underline;">Unsubscribe</a> • 
-                    <a href="https://stock-market-dev.vercel.app/" style="color:#64748b;text-decoration:underline;">Visit</a><br>
+                    <a href="https://sil-stock-tracker-app-c48v.vercel.app/" style="color:#64748b;text-decoration:underline;">Visit</a><br>
                     © 2025 SilStocks. All rights reserved.
                   </td>
                 </tr>
@@ -189,7 +189,7 @@ export const STOCK_ALERT_UPPER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                 <p style="margin:0;color:#cbd5e1;font-size:14px;line-height:1.5;">{{symbol}} has reached your target price. Consider reviewing your position.</p>
               </div>
 
-              <a href="https://stock-market-dev.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">View Dashboard</a>
+              <a href="https://sil-stock-tracker-app-c48v.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">View Dashboard</a>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;border-top:1px solid #11151a;padding-top:18px;">
                 <tr>
@@ -251,7 +251,7 @@ export const STOCK_ALERT_LOWER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                 <p style="margin:0;color:#cbd5e1;font-size:14px;line-height:1.5;">{{symbol}} dropped below your target price. This might be a good time to buy.</p>
               </div>
 
-              <a href="https://stock-market-dev.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">View Dashboard</a>
+              <a href="https://sil-stock-tracker-app-c48v.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">View Dashboard</a>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;border-top:1px solid #11151a;padding-top:18px;">
                 <tr>
@@ -308,7 +308,7 @@ export const VOLUME_ALERT_EMAIL_TEMPLATE = `<!DOCTYPE html>
               <div style="font-size:36px;font-weight:800;color:#0ea5e9;margin-bottom:8px;">{{currentVolume}}M</div>
               <p style="margin:0 0 18px 0;color:#94a3b8;font-size:14px;">{{alertMessage}}</p>
 
-              <a href="https://stock-market-dev.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">Investigate Now</a>
+              <a href="https://sil-stock-tracker-app-c48v.vercel.app/" style="display:inline-block;background:#0ea5e9;color:#000000;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(14,165,233,0.18);">Investigate Now</a>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;border-top:1px solid #11151a;padding-top:18px;">
                 <tr>
