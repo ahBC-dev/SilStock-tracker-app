@@ -1,7 +1,9 @@
+
+
 export const NAV_ITEMS = [
     { href: '/', label: 'Dashboard' },
     { href: '/search', label: 'Search' },
-    // { href: '/watchlist', label: 'Watchlist' },
+    { href: '/watchlist', label: 'Watchlist' },
 ];
 
 // Sign-up form select options
@@ -38,7 +40,7 @@ export const CONDITION_OPTIONS = [
 
 // TradingView Charts
 export const MARKET_OVERVIEW_WIDGET_CONFIG = {
-    colorTheme: 'dark', // dark mode
+    colorTheme: 'auto', // dark mode
     dateRange: '12M', // last 12 months
     locale: 'en', // language
     largeChartUrl: '', // link to a large chart if needed
@@ -95,12 +97,13 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
     showChart: true, // display mini chart
 };
 
+// Stock Heatmap
 export const HEATMAP_WIDGET_CONFIG = {
     dataSource: 'SPX500',
     blockSize: 'market_cap_basic',
     blockColor: 'change',
     grouping: 'sector',
-    isTransparent: true,
+    isTransparent: false,
     locale: 'en',
     symbolUrl: '',
     colorTheme: 'dark',
@@ -114,11 +117,13 @@ export const HEATMAP_WIDGET_CONFIG = {
     height: '600',
 };
 
+
+
 export const TOP_STORIES_WIDGET_CONFIG = {
     displayMode: 'regular',
     feedMode: 'market',
     colorTheme: 'dark',
-    isTransparent: true,
+    isTransparent: false,
     locale: 'en',
     market: 'stock',
     width: '100%',
@@ -337,3 +342,107 @@ export const WATCHLIST_TABLE_HEADER = [
     'Alert',
     'Action',
 ];
+
+
+
+// ticker tape widgets
+export const TICKER_TAPE_WIDGET_CONFIG = {
+    "symbols": [
+    {
+      "proName": "FOREXCOM:SPXUSD",
+      "title": "S&P 500 Index"
+    },
+    {
+      "proName": "FOREXCOM:NSXUSD",
+      "title": "US 100 Cash CFD"
+    },
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "BITSTAMP:BTCUSD",
+      "title": "Bitcoin"
+    },
+    {
+      "proName": "BITSTAMP:ETHUSD",
+      "title": "Ethereum"
+    },
+    {
+      "proName": "NASDAQ:NVDA",
+      "title": "NVIDIA"
+    }
+  ],
+  "colorTheme": "dark",
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "showSymbolLogo": true,
+  "displayMode": "adaptive"
+};
+export const TICKER_TAPE_WIDGET_CONFIG_LIGHT = {
+    "symbols": [
+    {
+      "proName": "FOREXCOM:SPXUSD",
+      "title": "S&P 500 Index"
+    },
+    {
+      "proName": "FOREXCOM:NSXUSD",
+      "title": "US 100 Cash CFD"
+    },
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "BITSTAMP:BTCUSD",
+      "title": "Bitcoin"
+    },
+    {
+      "proName": "BITSTAMP:ETHUSD",
+      "title": "Ethereum"
+    },
+    {
+      "proName": "NASDAQ:NVDA",
+      "title": "NVIDIA"
+    }
+  ],
+  "colorTheme": "light",
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "showSymbolLogo": true,
+  "displayMode": "adaptive"
+};
+
+
+
+export const MARKET_OVERVIEW_WIDGET_CONFIG_SYMBOL = (symbols: string[], title: string) => ({
+  colorTheme: "dark",
+  dateRange: "12M",
+  showChart: true,
+  locale: "en",
+  largeChartUrl: "",
+  isTransparent: false,
+  showSymbolLogo: true,
+  showFloatingTooltip: false,
+  width: "100%",
+  height: "600",
+  tabs: [
+    {
+      title: title,
+      symbols: symbols.map(s => ({ s: s.toUpperCase() }))
+    }
+  ]
+});
+
+export const TIMELINE_WIDGET_CONFIG = (symbol: string) => ({
+  feedMode: "symbol",
+  symbol: symbol.toUpperCase(),
+  colorTheme: "dark",
+  isTransparent: true,
+  displayMode: "regular",
+  width: "100%",
+  height: "600",
+  locale: "en"
+});

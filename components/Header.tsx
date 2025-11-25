@@ -1,22 +1,88 @@
+
+
 import Link from "next/link";
 import Image from "next/image";
 import Navitems from "./Navitems";
 import UserDropDown from "./UserDropDown";
+import { Button } from "@/components/ui/button"; // Assuming you have shadcn button for sign-in
+import { searchStocks } from "@/lib/actions/finnhub.actions";
+import { getWatchlistSymbolsByEmail } from "@/lib/actions/watchlist.actions";
+import ThemeToggle from "./ThemeToggle";
+import { TICKER_TAPE_WIDGET_CONFIG, TICKER_TAPE_WIDGET_CONFIG_LIGHT } from "@/lib/constants";
 
-const Header = () => {
+import TradingViewWidget from "./TradingViewWIdgets";
+
+const Header = async ({ user }: { user: User | undefined }) => {
+  // 1. Get the standard list of stocks
+  const initialStocks = await searchStocks()
+
+  // 2. Get user's watchlist ONLY if user exists
+  let mergedStocks = initialStocks;
+  
+  if (user?.email) {
+      const savedSymbols = await getWatchlistSymbolsByEmail(user.email);
+      const savedSet = new Set(savedSymbols.map(s => s.toUpperCase()));
+      
+      // 3. Merge watchlist status into initial stocks
+      mergedStocks = initialStocks.map(stock => ({
+        ...stock,
+        isInWatchlist: savedSet.has(stock.symbol.toUpperCase()),
+      }));
+  }
+
+  // 5. Extract symbols for the ticker tape widget
+  const displaySymbols = mergedStocks.map(stock => stock.symbol)
+
   return (
-    <header className="sticky top-0 header">
-        <div className="container header-wrapper">
+    <header className="sticky top-0 left-0 z-50 w-full h-20 bg-white border-b-2 border-gray-500 dark:bg-gray-900 dark:border-gray-700 drop-shadow-lg">
+      <div className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 py-4 flex flex-row justify-between items-center text-gray-800 dark:text-gray-500">
+          <div className="flex items-center">
             <Link href="/">
-                <Image src="/public/assets/icons/logo.svg" alt="shithole" width={140} height={160} className="cusorsor-pointer h-8 w-auto"/>
+                <Image src="/assets/icons/logoo.png" alt="Header" width={200} height={200} className="cursor-pointer hidden dark:block h-10 md:h-12 w-auto"/>
+                <Image src="/assets/icons/colored-logog.png" alt="Header" width={200} height={200} className="cursor-pointer block dark:hidden h-10 md:h-12 w-auto"/>
             </Link>
-            {/*NavItems*/}
-            <nav className="hidden sm:block">
-                <Navitems />
-            </nav>
-            {/*userDropDown*/}
-            <UserDropDown />
-        </div>
+            
+          </div>
+          {/*NavItems*/}
+          <nav className="hidden sm:block">
+              <Navitems initialStocks={mergedStocks} userEmail={user?.email} />
+          </nav>
+          {/*userDropDown*/}
+          <div className="flex flex-row items-center gap-2">
+            {/* sign-in button for guests, conditional rendering */}
+            {user ? (
+              <UserDropDown user={user} initialStocks={mergedStocks} />
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/sign-in">
+                  <Button variant="ghost">Sign In</Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button>Get Started</Button>
+                </Link>
+              </div>
+            )}
+            {/* conditional rendering end */}
+
+            <ThemeToggle />
+          </div>
+      </div>
+      <div className="w-full border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-[70px] z-10 hidden dark:block">
+        <TradingViewWidget 
+          scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+          config={TICKER_TAPE_WIDGET_CONFIG}
+          height={46}
+          className="w-full"
+        />
+      </div>
+      <div className="w-full  sticky top-[70px] z-10 dark:hidden">
+        <TradingViewWidget 
+          scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+          config={TICKER_TAPE_WIDGET_CONFIG_LIGHT}
+          height={46}
+          className="w-full"
+        />
+      </div>
     </header>
   )
 }

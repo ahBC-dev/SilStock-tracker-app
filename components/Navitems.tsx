@@ -1,32 +1,64 @@
 'use client'
 
-import { NAV_ITEMS } from "@/lib/constants"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import SearchCommand from './SearchCommand'
 
-const Navitems = () => {
+import { RiDashboardHorizontalFill } from "react-icons/ri";
+import { CiSearch } from "react-icons/ci";
+import { PiListStar } from "react-icons/pi";
+
+
+const NAV_ITEMS = [
+    { href: '/', label: 'Dashboard', Icon: RiDashboardHorizontalFill },
+    { href: '/watchlist/${symbol}', label: 'Watchlist', Icon: PiListStar },
+    //{ href: '/alerts', label: 'Alerts' },
+    { href: '/search', label: 'Search', },
+]
+
+const Navitems = ({initialStocks, userEmail}: {initialStocks: StockWithWatchlistStatus[], userEmail?: string}) => {
     const pathname = usePathname()
 
     const isActive = (path: string) => {
         if (path === '/') return pathname === '/';
-
-        return pathname.startsWith(path); //to check wether the link is currently active
+        return pathname.startsWith(path);
     }
 
-  return (
-    <ul className="flex flex-col sm:flex-row p-2 gap-3 sm:gap-10 font-medium">
-        {NAV_ITEMS.map(({href, label}) => (
-            <li key={href}>
-                <Link href={href} className={`hover:text-blue-500 transition-colors ${
-                        isActive(href) ? 'text-gray-200' : ''
-                    }`}>
-                        {label}
-                </Link>
-            </li>
-        ))}
+    return (
+        <ul className="flex flex-col md:flex-row p-2 md:gap-2 lg:gap-4 sm:gap-10 font-medium">
+            {NAV_ITEMS.map(({href, label, Icon}) => {
+                //HIDE WATCHLIST IF NO USER
+                if (label === 'Watchlist' && !userEmail) {
+                    return null;
+                }
+                
+                if (label === 'Search') {
+                    return (
+                        <li key={href} className='flex flex-row gap-1 '>
+                            <SearchCommand 
+                            renderAs="text" 
+                            label={label}
+                            initialStocks={initialStocks}
+                            userEmail={userEmail}
+                            />
+                        </li>
+                    )
+                }
 
-    </ul>
-  )
+                return (
+                    <li key={href}>
+                        <Link 
+                            href={href}
+                            className={isActive(href) ? 'text-blue-500' : 'hover:text-blue-500 transition-colors'}
+                        >
+                            {Icon && <Icon size={24} className="inline-block mr-2" />}
+                            {label}
+                        </Link>
+                    </li>
+                )
+            })}
+        </ul>
+    )
 }
 
 export default Navitems
