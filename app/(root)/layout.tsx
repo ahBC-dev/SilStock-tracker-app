@@ -6,20 +6,17 @@ import { headers } from "next/headers"
 const Layout = async ({children}: {children: React.ReactNode}) => {
   const session = await (await auth).api.getSession({ headers: await headers() });
 
-  if(!session?.user) {
-    redirect('/sign-in');
-  }
-
-  const user = {
+  //update user object to be undefined if no session
+  const user = session?.user ? {
     id: session.user.id,
     name: session?.user?.name,
     email: session.user.email,
-  }
+  }: undefined;
 
   return (
-    <main className="min-h-screen text-neutral-200">
+    <main className="min-h-screen text-gray-800 dark:text-neutral-200 bg-neutral-100 dark:bg-gray-900">
         <Header user={user} />
-        <div className="container py-10">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 bg-neutral-100 dark:bg-gray-900 py-20 md:py-17">
             {children}
         </div>
     </main>

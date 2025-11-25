@@ -3,10 +3,13 @@ import { getSessionCookie } from "better-auth/cookies";
 
 export async function middleware(request: NextRequest) {
 	const sessionCookie = getSessionCookie(request);
+	const path = request.nextUrl.pathname;
 
-    // THIS IS NOT SECURE!
-    // This is the recommended approach to optimistically redirect users
-    // We recommend handling auth checks in each page/route
+    // Allow public access to the home page
+	if (path === "/") {
+		return NextResponse.next();
+	}
+
 	if (!sessionCookie) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
@@ -15,6 +18,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+	//exclude api, static files, auth pages, and assets from middleware
 	matcher: [
         '/((?!api|_next/static|_next/image|favicon.ico|sign-in|sign-up|assets).*)',
     ], // Specify the routes the middleware applies to

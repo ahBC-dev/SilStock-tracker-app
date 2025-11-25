@@ -146,15 +146,15 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
         </div>
         <CommandList className="search-list">
           {loading ? (
-              <CommandEmpty className="search-list-empty">Loading stocks...</CommandEmpty>
+              <CommandEmpty className="search-list-empty">Loading Markets...</CommandEmpty>
           ) : displayStocks?.length === 0 ? (
               <div className="search-list-indicator">
-                {isSearchMode ? 'No results found' : 'No stocks available'}
+                {isSearchMode ? 'No results found' : 'No Markets available'}
               </div>
             ) : (
             <ul>
               <div className="search-count">
-                {isSearchMode ? 'Search results' : 'Popular stocks'}
+                {isSearchMode ? 'Search results' : 'Popular Markets'}
                 {` `}({displayStocks?.length || 0})
               </div>
               {displayStocks?.map((stock, i) => (
@@ -175,11 +175,15 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
                       </div>
 
                         {/*<Star />*/}
-                        <Star
+                        {/* Hide star If user is not logged in */}
+                        {userEmail 
+                            ? <Star 
+                            className="cursor-pointer text-xs text-yellow-400 hover:text-yellow-500 transition-colors"
                             onClick={(e) => toggleWatchlist(e, stock)}
-                            className="h-4 w-4 text-yellow-400"
-                            fill={stock.isInWatchlist ? "yellow" : "none"}
-                        />
+                            fill={stock.isInWatchlist ? "yellow" : ""}
+                            />
+                            : null
+                    }
                     </Link>
                   </li>
               ))}

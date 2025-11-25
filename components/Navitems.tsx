@@ -25,8 +25,13 @@ const Navitems = ({initialStocks, userEmail}: {initialStocks: StockWithWatchlist
     }
 
     return (
-        <ul className="flex flex-col md:flex-row p-2 gap-4 sm:gap-10 font-medium">
+        <ul className="flex flex-col md:flex-row p-2 md:gap-2 lg:gap-4 sm:gap-10 font-medium">
             {NAV_ITEMS.map(({href, label, Icon}) => {
+                //HIDE WATCHLIST IF NO USER
+                if (label === 'Watchlist' && !userEmail) {
+                    return null;
+                }
+                
                 if (label === 'Search') {
                     return (
                         <li key={href} className='flex flex-row gap-1 '>
