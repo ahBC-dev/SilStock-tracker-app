@@ -3,17 +3,13 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import SearchCommand from './SearchCommand'
-
-import { RiDashboardHorizontalFill } from "react-icons/ri";
-import { CiSearch } from "react-icons/ci";
-import { PiListStar } from "react-icons/pi";
+import { LayoutDashboard, Star, Search as SearchIcon } from "lucide-react";
 
 
 const NAV_ITEMS = [
-    { href: '/', label: 'Dashboard', Icon: RiDashboardHorizontalFill },
-    { href: '/watchlist/${symbol}', label: 'Watchlist', Icon: PiListStar },
-    //{ href: '/alerts', label: 'Alerts' },
-    { href: '/search', label: 'Search', },
+    { href: '/', label: 'Dashboard', Icon: LayoutDashboard },
+    { href: '/watchlist/${symbol}', label: 'Watchlist', Icon: Star },
+    { href: '/search', label: 'Search', Icon: SearchIcon },
 ]
 
 const Navitems = ({initialStocks, userEmail}: {initialStocks: StockWithWatchlistStatus[], userEmail?: string}) => {
@@ -45,14 +41,22 @@ const Navitems = ({initialStocks, userEmail}: {initialStocks: StockWithWatchlist
                     )
                 }
 
+                const active = isActive(href);
+
                 return (
                     <li key={href}>
                         <Link 
                             href={href}
-                            className={isActive(href) ? 'text-blue-500' : 'hover:text-blue-500 transition-colors'}
+                            className={`
+                                group flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-200 font-semibold text-sm
+                                ${active
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                                    : 'text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/50'
+                                }
+                            `}
                         >
-                            {Icon && <Icon size={24} className="inline-block mr-2" />}
-                            {label}
+                            {Icon && <Icon className={`w-4 h-4 transition-transform group-hover:scale-110 ${active ? '' : 'group-hover:rotate-12'}`} />}
+                            <span>{label}</span>
                         </Link>
                     </li>
                 )

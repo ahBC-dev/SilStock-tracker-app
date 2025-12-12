@@ -30,7 +30,7 @@ const UserDropDown = ({ user, initialStocks }: { user: User, initialStocks: Stoc
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-3 text-gray-4 hover:text-blue-900 cursor-pointer p-2">
                     <Avatar className="h-9 w-9">
-                        <AvatarImage src="https://github.com/shadcn.png"></AvatarImage>
+                        <AvatarImage src={user.image || "https://github.com/shadcn.png"}></AvatarImage>
                         <AvatarFallback className="bg-white text-black text-sm font-bold">
                             {user.name[0]}
                         </AvatarFallback>
@@ -48,7 +48,7 @@ const UserDropDown = ({ user, initialStocks }: { user: User, initialStocks: Stoc
                 <DropdownMenuLabel>
                     <div className="flex relative items-center gap-3 py-2">
                         <Avatar className="h-8 w-8">
-                            <AvatarImage src="https://github.com/shadcn.png"></AvatarImage>
+                            <AvatarImage src={user.image || "https://github.com/shadcn.png"}></AvatarImage>
                             <AvatarFallback className="bg-blue-500 text-yellow-400 text-sm font-bold">
                                 {user.name[0]}
                             </AvatarFallback>
