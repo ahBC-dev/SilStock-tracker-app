@@ -12,3 +12,4 @@ export default function useDebounce(callback: () => void, delay: number) {
         timeoutRef.current = setTimeout(callback, delay);
     }, [callback, delay]);
 }
+

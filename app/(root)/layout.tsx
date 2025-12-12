@@ -14,10 +14,15 @@ const Layout = async ({children}: {children: React.ReactNode}) => {
   }: undefined;
 
   return (
-    <main className="min-h-screen text-gray-800 dark:text-neutral-200 bg-neutral-100 dark:bg-gray-900">
+    <main className="min-h-screen text-gray-900 dark:text-white bg-white dark:bg-[#0A0A0F]">
         <Header user={user} />
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 bg-neutral-100 dark:bg-gray-900 py-20 md:py-17">
+        <div className="relative">
+          {/* Subtle gradient overlay */}
+          <div className="fixed inset-0 bg-linear-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30 dark:from-blue-950/10 dark:via-purple-950/10 dark:to-pink-950/10 pointer-events-none"></div>
+          
+          <div className="relative">
             {children}
+          </div>
         </div>
     </main>
   )

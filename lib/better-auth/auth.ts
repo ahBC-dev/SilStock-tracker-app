@@ -26,6 +26,13 @@ export const getAuth = async () => {
             maxPasswordLength: 64,
             autoSignIn: true,
         },
+        // Google OAuth provider configuration
+        socialProviders: {
+            google: {
+                clientId: process.env.GOOGLE_CLIENT_ID!,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            },
+        },
         plugins: [
             nextCookies(),
         ],
