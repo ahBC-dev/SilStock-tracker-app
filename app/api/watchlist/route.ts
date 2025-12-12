@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
     symbol: string
     company?: string
   }
+  
   const result = await mutateWatchlist(action, email, symbol, company)
   const status = result.ok ? 200 : 400
   return NextResponse.json(result, { status })

@@ -138,62 +138,143 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-gray-900 text-foreground;
+    @apply bg-white dark:bg-[#0A0A0F] text-foreground antialiased;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@utility glass-card {
+  background: rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgb(229 231 235 / 0.5);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.05);
+}
+
+.dark .glass-card {
+  background: rgb(31 41 55 / 0.5);
+  border-color: rgb(75 85 99 / 0.5);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.2);
 }
 
 @layer utilities {
   
-  .blue-btn {
-    @apply h-12 cursor-pointer bg-gradient-to-b from-blue-400 to-blue-600 hover:from-blue-600 hover:to-blue-400 text-gray-900 font-medium text-base rounded-lg shadow-lg disabled:opacity-50 transition-colors duration-300;
+@layer utilities {
+  
+  /* Animated Background Gradient */
+  .gradient-bg {
+    @apply bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-950/20 dark:to-blue-950/20;
   }
-  .home-wrapper {
-    @apply text-gray-900 dark:text-neutral-200 ;
+  
+  /* Hero Section */
+  .hero-title {
+    @apply text-5xl md:text-6xl lg:text-7xl font-black bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight;
   }
-  .home-section {
-    
+  
+  .hero-subtitle {
+    @apply text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-medium;
+  }
+  
+  /* Modern Card Hover Effect */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+  
+  /* Animated Badge */
+  .badge-glow {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-linear-to-r from-blue-500/10 to-purple-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20 backdrop-blur-sm;
+  }
+  
+  /* Section Wrapper */
+  .section-wrapper {
+    @apply max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20;
+  }
+  
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  /* nigga piece of shit */
   .header {
-    @apply z-50 w-full h-[80px] ;
+    @apply z-50 w-full h-[80px];
   }
-  /* shit pussy */
+  
   .header-wrapper {
     @apply flex flex-row justify-between items-center px-6 py-4 text-gray-500;
   }
 
 
 
+  /* Modern Auth Layout */
   .auth-layout {
-    @apply flex flex-col justify-between lg:flex-row h-screen bg-gray-900 relative overflow-hidden;
+    @apply relative min-h-screen bg-white dark:bg-[#0A0A0F] overflow-hidden;
   }
-  .auth-logo {
-    @apply pt-6 lg:pt-8 mb-8 lg:mb-12;
+  
+  .auth-container {
+    @apply flex min-h-screen relative z-10;
   }
+  
   .auth-left-section {
-    @apply w-full lg:w-[45%] lg:h-screen px-6 lg:px-16 flex flex-col overflow-y-auto;
+    @apply w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-16 relative;
   }
+  
+  .auth-content {
+    @apply w-full max-w-md space-y-8;
+  }
+  
+  .auth-logo {
+    @apply mb-8 flex items-center gap-3;
+  }
+  
   .auth-right-section {
-    @apply w-full max-lg:border-t max-lg:border-gray-600 lg:w-[55%] lg:h-screen bg-gray-800 px-6 py-4 md:p-6 lg:py-12 lg:px-18 flex flex-col justify-start;
+    @apply hidden lg:flex lg:w-1/2 relative items-center justify-center p-12 bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 overflow-hidden;
   }
-  .auth-blockquote {
-    @apply text-sm md:text-xl lg:text-2xl font-medium text-gray-400 mb-1 md:mb-6 lg:mb-8;
+  
+  .auth-decorative-shapes {
+    @apply absolute inset-0 opacity-20;
   }
-  .auth-testimonial-author {
-    @apply text-xs md:text-lg font-bold text-gray-400 not-italic;
+  
+  /* Form Styles */
+  .form-card {
+    @apply glass-card p-8 md:p-10 space-y-6;
   }
-  .auth-dashboard-preview {
-    @apply border-6 border-gray-800 left-0 hidden w-[1024px] h-auto max-w-none lg:block rounded-2xl shadow-2xl;
-  }
+  
   .form-title {
-    @apply text-4xl font-bold text-gray-400 mb-10;
+    @apply text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2;
   }
+  
+  .form-subtitle {
+    @apply text-base text-gray-600 dark:text-gray-400 mb-8;
+  }
+  
   .form-label {
-    @apply text-sm font-medium text-gray-400;
+    @apply text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block;
   }
+  
   .form-input {
-    @apply h-12 px-3 py-3 text-white text-base placeholder:text-gray-500 border-gray-600 bg-gray-800 rounded-lg focus:!border-blue-500 focus:ring-0;
+    @apply w-full h-12 px-4 text-gray-900 dark:text-white text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-white dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 outline-none;
   }
   .select-trigger {
     @apply w-full !h-12 px-3 py-3 text-base border-gray-600 bg-gray-800 text-white rounded-lg focus:!border-blue-500 focus:ring-0;
@@ -210,8 +291,9 @@
   .country-select-item {
     @apply text-white cursor-pointer px-3 py-2 rounded-sm bg-gray-800 hover:!bg-gray-600;
   }
+  /* Auth & Form */
   .footer-link {
-    @apply text-gray-400 font-medium hover:text-blue-400 hover:underline transition-colors duration-300;
+    @apply text-gray-600 dark:text-gray-400 font-semibold hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200;
   }
   .search-text {
     @apply cursor-pointer hover:text-blue-600 dark:hover:text-neutral-100 transition-colors duration-300;
@@ -396,19 +478,18 @@
 /* TradingView Advanced Chart Widget Styles */
 .tradingview-widget-container {
   position: relative;
-  background-color: #141414 !important;
-  border-radius: 8px !important;
+  background-color: transparent !important;
+  border-radius: 16px !important;
   overflow: hidden !important;
 }
 
 .tv-embed-widget-wrapper__body {
-  background-color: #141414 !important;
+  background-color: transparent !important;
 }
 
 .tradingview-widget-container__widget {
-  background-color: #141414 !important;
+  background-color: transparent !important;
   height: 100% !important;
-
 }
 
 .widget-stock-heatmap-container .screenerMapWrapper-BBVfGP0b {
@@ -491,4 +572,5 @@
 
 .scrollbar-hide-default::-webkit-scrollbar-thumb:hover {
   background-color: #9095A1;
+}
 }
