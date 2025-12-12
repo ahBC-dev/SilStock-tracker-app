@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 import { CommandDialog, CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
-import {Loader2,  Search,  Star,  TrendingUp} from "lucide-react";
+import { Loader2, Search, Star, TrendingUp } from "lucide-react";
 
 import Link from "next/link";
-import {searchStocks} from "@/lib/actions/finnhub.actions";
+import { searchStocks } from "@/lib/actions/finnhub.actions";
 
 import useDebounce from "@/hooks/useDebounce";
 import WatchlistButton from "./WatchlistButton";
@@ -26,7 +26,6 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
 
   const isSearchMode = !!searchTerm.trim();
   const displayStocks = isSearchMode ? stocks : stocks?.slice(0, 10);
-
 
   // Fetch fresh watchlist data when opening to ensure sync
   useEffect(() => {
@@ -60,17 +59,17 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
   }, [])
 
   const handleSearch = async () => {
-    if(!isSearchMode) return setStocks(initialStocks);
+    if (!isSearchMode) return setStocks(initialStocks);
 
     setLoading(true)
     try {
-        const results = await searchStocks(searchTerm.trim());
-        // Apply watchlist status from the current watchlist set
-        const mergedResults = results.map(stock => ({
-          ...stock,
-          isInWatchlist: watchlistSetRef.current.has(stock.symbol)
-        }));
-        setStocks(mergedResults);
+      const results = await searchStocks(searchTerm.trim());
+      // Apply watchlist status from the current watchlist set
+      const mergedResults = results.map(stock => ({
+        ...stock,
+        isInWatchlist: watchlistSetRef.current.has(stock.symbol)
+      }));
+      setStocks(mergedResults);
     } catch {
       setStocks([])
     } finally {
@@ -90,8 +89,8 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
     setStocks(initialStocks);
   }
 
-    // new: shared handler for watchlist changes (both icon and full button use this)
-    const toggleWatchlist = async (e: React.MouseEvent, stock: StockWithWatchlistStatus) => {
+  // new: shared handler for watchlist changes (both icon and full button use this)
+  const toggleWatchlist = async (e: React.MouseEvent, stock: StockWithWatchlistStatus) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -129,16 +128,16 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
   return (
     <>
       {renderAs === 'text' ? (
-          <span onClick={() => setOpen(true)} className="search-text">
-            <BsSearch size={24} className="inline-block mr-1 transition-colors " />
-            {label}
-          </span>
-        ) : (
-          <Button onClick={() => setOpen(true)} className="search-btn">
-            <BsSearch size={22} className="inline-block mr-1 transition-colors " />
-            {label}
-          </Button>
-        )}
+        <span onClick={() => setOpen(true)} className="search-text">
+          <BsSearch size={24} className="inline-block mr-1 transition-colors " />
+          {label}
+        </span>
+      ) : (
+        <Button onClick={() => setOpen(true)} className="search-btn">
+          <BsSearch size={22} className="inline-block mr-1 transition-colors " />
+          {label}
+        </Button>
+      )}
       <CommandDialog open={open} onOpenChange={setOpen} className="search-dialog">
         <div className="search-field">
           <CommandInput value={searchTerm} onValueChange={setSearchTerm} placeholder="Search stocks..." className="search-input" />
@@ -146,46 +145,46 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
         </div>
         <CommandList className="search-list">
           {loading ? (
-              <CommandEmpty className="search-list-empty">Loading Markets...</CommandEmpty>
+            <CommandEmpty className="search-list-empty">Loading Markets...</CommandEmpty>
           ) : displayStocks?.length === 0 ? (
-              <div className="search-list-indicator">
-                {isSearchMode ? 'No results found' : 'No Markets available'}
-              </div>
-            ) : (
+            <div className="search-list-indicator">
+              {isSearchMode ? 'No results found' : 'No Markets available'}
+            </div>
+          ) : (
             <ul>
               <div className="search-count">
                 {isSearchMode ? 'Search results' : 'Popular Markets'}
                 {` `}({displayStocks?.length || 0})
               </div>
               {displayStocks?.map((stock, i) => (
-                  <li key={stock.symbol} className="search-item">
-                    <Link
-                        href={`/stocks/${stock.symbol}`}
-                        onClick={handleSelectStock}
-                        className="search-item-link"
-                    >
-                      <TrendingUp className="h-4 w-4 text-gray-500" />
-                      <div  className="flex-1">
-                        <div className="search-item-name">
-                          {stock.name}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {stock.symbol} | {stock.exchange } | {stock.type}
-                        </div>
+                <li key={stock.symbol} className="search-item">
+                  <Link
+                    href={`/stocks/${stock.symbol}`}
+                    onClick={handleSelectStock}
+                    className="search-item-link"
+                  >
+                    <TrendingUp className="h-4 w-4 text-gray-500" />
+                    <div className="flex-1">
+                      <div className="search-item-name">
+                        {stock.name}
                       </div>
+                      <div className="text-sm text-gray-500">
+                        {stock.symbol} | {stock.exchange} | {stock.type}
+                      </div>
+                    </div>
 
-                        {/*<Star />*/}
-                        {/* Hide star If user is not logged in */}
-                        {userEmail 
-                            ? <Star 
-                            className="cursor-pointer text-xs text-yellow-400 hover:text-yellow-500 transition-colors"
-                            onClick={(e) => toggleWatchlist(e, stock)}
-                            fill={stock.isInWatchlist ? "yellow" : ""}
-                            />
-                            : null
+                    {/*<Star />*/}
+                    {/* Hide star If user is not logged in */}
+                    {userEmail
+                      ? <Star
+                        className="cursor-pointer text-xs text-yellow-400 hover:text-yellow-500 transition-colors"
+                        onClick={(e) => toggleWatchlist(e, stock)}
+                        fill={stock.isInWatchlist ? "yellow" : ""}
+                      />
+                      : null
                     }
-                    </Link>
-                  </li>
+                  </Link>
+                </li>
               ))}
             </ul>
           )
